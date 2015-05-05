@@ -5,17 +5,18 @@ import com.unisys.trans.logistics.lms.framework.dto.RuleExecutionContext;
 import com.unisys.trans.logistics.lms.accounting.dto.AccountingDroolsRequest;
 import com.unisys.trans.logistics.lms.accounting.dto.AccountingEntryJournalDto;
 import com.unisys.trans.logistics.lms.accounting.dto.constants.AccountingRuleIndicators;
+import com.unisys.trans.logistics.lms.framework.dto.RulesExecutionContext;
 
 rule "ACC_CASSBILLING_AWB_AGENTDEBTOR"
 	dialect "mvel"
 	when
-		context : RuleExecutionContext( )
+		context : RulesExecutionContext( )
 		request : AccountingDroolsRequest( triggerPoint == "CASS Billing" , ruleIndicator == AccountingRuleIndicators.AWB , agentDebtor : cassParticipantInvoiceAWBDto.netAmountPayable > 0.0B )
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "14300551" );
 		accountingJournal.setDebitAmountSourceCurrency( agentDebtor );
-		accountingJournal.setCreditAmountSourceCurrency( 0.0B );
+		accountingJournal.setCreditAmountSourceCurrency( 0.0 );
 		accountingJournal.setCostCenter( "MSP" );
 		accountingJournal.setRuleName( "Accounting CASS Billing AWB Agent Debtor" );
 		accountingJournal.setAmountType( "Agent Debtor" );
