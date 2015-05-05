@@ -1,9 +1,29 @@
 package com.unisys.accounting.accountingproject.accountingpackage;
 
 import java.lang.Number;
+import com.unisys.trans.logistics.lms.framework.dto.RuleExecutionContext;
+import com.unisys.trans.logistics.lms.accounting.dto.AccountingDroolsRequest;
+import com.unisys.trans.logistics.lms.accounting.dto.AccountingEntryJournalDto;
+import com.unisys.trans.logistics.lms.accounting.dto.constants.AccountingRuleIndicators;
 
 rule "ACC_CASSBILLING_AWB_AGENTDEBTOR"
 	dialect "mvel"
 	when
+		context : RuleExecutionContext( )
+		request : AccountingDroolsRequest( triggerPoint == "CASS Billing" , ruleIndicator == AccountingRuleIndicators.AWB , agentDebtor : cassParticipantInvoiceAWBDto.netAmountPayable > 0.0B )
 	then
+		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
+		accountingJournal.setGlAccountNumber( "14300551" );
+		accountingJournal.setDebitAmountSourceCurrency( agentDebtor );
+		accountingJournal.setCreditAmountSourceCurrency( 0.0B );
+		accountingJournal.setCostCenter( "MSP" );
+		accountingJournal.setRuleName( "Accounting CASS Billing AWB Agent Debtor" );
+		accountingJournal.setAmountType( "Agent Debtor" );
+		accountingJournal.setArAccountNumber( "14300551" );
+		insert( accountingJournal );
+		context.setOutPutObject( accountingJournal );
+		
+		
+		
+		System.out.println("***************Agent Debtor EXECUTED*************" +agentDebtor);
 end
