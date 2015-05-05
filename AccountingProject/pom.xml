@@ -8,6 +8,13 @@
   <packaging>kjar</packaging>
   <name>AccountingProject</name>
   <description>This project has rules for Accounting</description>
+  <dependencies>
+    <dependency>
+      <groupId>com.unisys.accounting</groupId>
+      <artifactId>accountingmodel</artifactId>
+      <version>1</version>
+    </dependency>
+  </dependencies>
   <repositories>
     <repository>
       <id>guvnor-m2-repo</id>
