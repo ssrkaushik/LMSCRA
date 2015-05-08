@@ -1,0 +1,30 @@
+package com.unisys.accounting.accountingproject.accountingpackage;
+
+import java.lang.Number;
+import com.unisys.trans.logistics.lms.framework.dto.RuleExecutionContext;
+import com.unisys.trans.logistics.lms.accounting.dto.AccountingDroolsRequest;
+import com.unisys.trans.logistics.lms.accounting.dto.AccountingEntryJournalDto;
+import com.unisys.trans.logistics.lms.accounting.dto.constants.AccountingRuleIndicators;
+import com.unisys.trans.logistics.lms.framework.dto.RulesExecutionContext;
+import com.unisys.trans.logistics.lms.accounting.dto.constants.ExportPaymentType;
+import com.unisys.trans.logistics.lms.accounting.dto.AirWaybillRevenueDto;
+import com.unisys.trans.logistics.lms.accounting.dto.AccountingFlownRevenueDto;
+import com.unisys.trans.logistics.lms.accounting.dto.AccountingAirWaybillDetailDto;
+
+rule "ACC_FLOWN_REVENUE_AWB_SECURITYSURCHARGE_EXPENSES"
+	dialect "mvel"
+	when
+		context : RulesExecutionContext( )
+		request : AccountingDroolsRequest( triggerPoint == "Flown Revenue" , ruleIndicator == AccountingRuleIndicators.AWB , accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PC || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PD || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PG || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PX , hostCarrierCode : accFlownRevenueDto.hostCarrierCode != null , accFlownRevenueDto.onlineProrationDetailDto.carrierCode == hostCarrierCode , eval( request.otherChargeCodeExists("SC") ))
+	then
+		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
+		accountingJournal.setGlAccountNumber( "99990004" );
+		accountingJournal.setDebitAmountSourceCurrency( =request.getOtherChargeCode("SC") );
+		accountingJournal.setCreditAmountSourceCurrency( 0.0 );
+		accountingJournal.setCostCenter( "MSP" );
+		accountingJournal.setRuleName( "Accounting Flown Revenue Security Surcharge Suspense" );
+		accountingJournal.setAmountType( "Security Surcharge Suspense" );
+		insert( accountingJournal );
+		System.out.println(" Security Surcharge Suspense Executed" + revenue);
+		context.setOutPutObject( accountingJournal );
+end
