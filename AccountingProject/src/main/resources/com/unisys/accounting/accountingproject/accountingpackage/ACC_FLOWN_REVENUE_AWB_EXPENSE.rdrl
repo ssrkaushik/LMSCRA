@@ -15,17 +15,16 @@ rule "ACC_CASSBILLING_AWB_AGENTDEBTOR"
 	dialect "mvel"
 	when
 		context : RulesExecutionContext( )
-		request : AccountingDroolsRequest( triggerPoint == "CASS Billing" , ruleIndicator == AccountingRuleIndicators.AWB , accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PC || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PD || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PG || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PX , hostCarrierCode : accFlownRevenueDto.hostCarrierCode != null )
+		request : AccountingDroolsRequest( triggerPoint == "Flown Revenue" , ruleIndicator == AccountingRuleIndicators.AWB , accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PC || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PD || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PG || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PX , hostCarrierCode : accFlownRevenueDto.hostCarrierCode != null , accFlownRevenueDto.onlineProrationDetailDto.carrierCode == hostCarrierCode , revenue : accFlownRevenueDto.onlineProrationDetailDto.carrierRevenue > 0.0B )
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
-		accountingJournal.setGlAccountNumber( "14300551" );
-		accountingJournal.setDebitAmountSourceCurrency( agentDebto );
-		accountingJournal.setCreditAmountSourceCurrency( 0.B );
+		accountingJournal.setGlAccountNumber( "99990006" );
+		accountingJournal.setDebitAmountSourceCurrency( 0.0B );
+		accountingJournal.setCreditAmountSourceCurrency( revenue );
 		accountingJournal.setCostCenter( "MSP" );
-		accountingJournal.setRuleName( "Accounting CASS Billing AWB Agent Debtor" );
-		accountingJournal.setAmountType( "Agent Debtor" );
-		accountingJournal.setArAccountNumber( "14300551" );
+		accountingJournal.setRuleName( "Accounting Flown Revenue" );
+		accountingJournal.setAmountType( "Flown Revenue" );
 		insert( accountingJournal );
-		System.out.println("***************Agent Debtor EXECUTED*************" +agentDebtor);
 		context.setOutPutObject( accountingJournal );
+		System.out.println(" Flown Revenue International Expense Executed" + revenue);
 end
