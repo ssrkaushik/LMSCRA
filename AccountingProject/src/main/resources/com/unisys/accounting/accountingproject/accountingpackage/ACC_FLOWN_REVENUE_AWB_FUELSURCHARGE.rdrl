@@ -19,12 +19,12 @@ rule "ACC_FLOWN_REVENUE_AWB_FUELSURCHARGE"
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990004" );
-		accountingJournal.setDebitAmountSourceCurrency( =request.getOtherChargeCode("MY") );
-		accountingJournal.setCreditAmountSourceCurrency( 0.0B );
+		accountingJournal.setDebitAmountSourceCurrency( request.getOtherChargeCode("MY") );
+		accountingJournal.setCreditAmountSourceCurrency( 0.0 );
 		accountingJournal.setCostCenter( "MSP" );
 		accountingJournal.setRuleName( "Accounting Flown Revenue Fuel Surcharge" );
 		accountingJournal.setAmountType( "Fuel Surcharge" );
 		insert( accountingJournal );
-		System.out.println(" Fuel Surcharge Expense Executed" + revenue);
-		context.setOutPutObject( accountingJournal );
+		context.setOutPutObject( accountingjournal );
+		System.out.println(" Fuel Surcharge Expense Executed" );
 end
