@@ -15,16 +15,16 @@ rule "ACC_FLOWN_REVENUE_AWB_SECURITYSURCHARGE"
 	dialect "mvel"
 	when
 		context : RulesExecutionContext( )
-		request : AccountingDroolsRequest( triggerPoint == "Flown Revenue" , ruleIndicator == AccountingRuleIndicators.AWB , accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PC || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PD || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PG || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PX , hostCarrierCode : accFlownRevenueDto.hostCarrierCode != null , accFlownRevenueDto.onlineProrationDetailDto.carrierCode == hostCarrierCode , eval( request.otherChargeCodeExists("MY") ))
+		request : AccountingDroolsRequest( triggerPoint == "Flown Revenue" , ruleIndicator == AccountingRuleIndicators.AWB , accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PC || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PD || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PG || accFlownRevenueDto.airWaybillRevenueDto.accountingAirWaybillDto.airWaybillDetail.exportPaycode == ExportPaymentType.PX , hostCarrierCode : accFlownRevenueDto.hostCarrierCode != null , accFlownRevenueDto.onlineProrationDetailDto.carrierCode == hostCarrierCode , eval( request.otherChargeCodeExists("SC") ))
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990004" );
-		accountingJournal.setDebitAmountSourceCurrency( =request.getOtherChargeCode("MY") );
-		accountingJournal.setCreditAmountSourceCurrency( 0.0B );
+		accountingJournal.setDebitAmountSourceCurrency( =request.getOtherChargeCode("SC") );
+		accountingJournal.setCreditAmountSourceCurrency( 0.0 );
 		accountingJournal.setCostCenter( "MSP" );
-		accountingJournal.setRuleName( "Accounting Flown Revenue Fuel Surcharge" );
-		accountingJournal.setAmountType( "Fuel Surcharge" );
+		accountingJournal.setRuleName( "Accounting Flown Revenue Security Surcharge Suspense" );
+		accountingJournal.setAmountType( "Security Surcharge Suspense" );
 		insert( accountingJournal );
-		System.out.println(" Fuel Surcharge Expense Executed" + revenue);
+		System.out.println(" Security Surcharge Suspense Executed" + revenue);
 		context.setOutPutObject( accountingJournal );
 end
