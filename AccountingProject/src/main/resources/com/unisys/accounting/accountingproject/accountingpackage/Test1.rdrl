@@ -1,0 +1,9 @@
+package com.unisys.accounting.accountingproject.accountingpackage;
+
+import java.lang.Number;
+
+rule "Test1"
+	dialect "mvel"
+	when
+	then
+end
