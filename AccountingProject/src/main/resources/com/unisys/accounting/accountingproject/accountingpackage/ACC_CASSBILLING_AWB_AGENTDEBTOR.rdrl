@@ -16,15 +16,12 @@ rule "ACC_CASSBILLING_AWB_AGENTDEBTOR"
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "14300551" );
 		accountingJournal.setDebitAmountSourceCurrency( agentDebtor );
-		accountingJournal.setCreditAmountSourceCurrency( 0.0 );
+		accountingJournal.setCreditAmountSourceCurrency( 0.B );
 		accountingJournal.setCostCenter( "MSP" );
 		accountingJournal.setRuleName( "Accounting CASS Billing AWB Agent Debtor" );
 		accountingJournal.setAmountType( "Agent Debtor" );
 		accountingJournal.setArAccountNumber( "14300551" );
 		insert( accountingJournal );
-		context.setOutPutObject( accountingJournal );
-		
-		
-		
 		System.out.println("***************Agent Debtor EXECUTED*************" +agentDebtor);
+		context.setOutPutObject( accountingJournal );
 end
