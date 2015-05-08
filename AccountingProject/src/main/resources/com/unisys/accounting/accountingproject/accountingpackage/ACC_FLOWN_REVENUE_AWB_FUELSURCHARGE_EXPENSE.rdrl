@@ -11,7 +11,7 @@ import com.unisys.trans.logistics.lms.accounting.dto.AirWaybillRevenueDto;
 import com.unisys.trans.logistics.lms.accounting.dto.AccountingFlownRevenueDto;
 import com.unisys.trans.logistics.lms.accounting.dto.AccountingAirWaybillDetailDto;
 
-rule "ACC_FLOWN_REVENUE_AWB_FUELSURCHARGE"
+rule "ACC_FLOWN_REVENUE_AWB_FUELSURCHARGE_EXPENSE"
 	dialect "mvel"
 	when
 		context : RulesExecutionContext( )
