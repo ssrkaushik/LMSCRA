@@ -19,12 +19,12 @@ rule "ACC_FLOWN_REVENUE_AWB_SUSPENSE"
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990006" );
-		accountingJournal.setDebitAmountSourceCurrency( 0.0B );
-		accountingJournal.setCreditAmountSourceCurrency( revenue );
+		accountingJournal.setDebitAmountSourceCurrency( revenue );
+		accountingJournal.setCreditAmountSourceCurrency( 0.0B );
 		accountingJournal.setCostCenter( "MSP" );
-		accountingJournal.setRuleName( "Accounting Flown Revenue" );
-		accountingJournal.setAmountType( "Flown Revenue" );
+		accountingJournal.setRuleName( "Accounting Flown  Revenue Suspense" );
+		accountingJournal.setAmountType( "Flown Revenue Suspense" );
 		insert( accountingJournal );
+		System.out.println(" Flown Revenue International Suspense Executed" + revenue);
 		context.setOutPutObject( accountingJournal );
-		System.out.println(" Flown Revenue International Expense Executed" + revenue);
 end
