@@ -20,7 +20,7 @@ rule "ACC_FLOWN_REVENUE_AWB_SUSPENSE"
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990006" );
 		accountingJournal.setDebitAmountSourceCurrency( revenue );
-		accountingJournal.setCreditAmountSourceCurrency( 0.0B );
+		accountingJournal.setCreditAmountSourceCurrency( 0.0 );
 		accountingJournal.setCostCenter( "MSP" );
 		accountingJournal.setRuleName( "Accounting Flown  Revenue Suspense" );
 		accountingJournal.setAmountType( "Flown Revenue Suspense" );
