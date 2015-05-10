@@ -19,12 +19,12 @@ rule "ACC_FLOWN_REVENUE_AWB_SECURITYSURCHARGE_EXPENSES"
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990004" );
-		accountingJournal.setDebitAmountSourceCurrency( 0.0B );
-		accountingJournal.setCreditAmountSourceCurrency( =request.getOtherChargeCode("SC") );
+		accountingJournal.setDebitAmountSourceCurrency( 0.0 );
+		accountingJournal.setCreditAmountSourceCurrency( request.getOtherChargeCode("SC") );
 		accountingJournal.setCostCenter( "MSP" );
 		accountingJournal.setRuleName( "Accounting Flown Revenue Security Surcharge Suspense" );
 		accountingJournal.setAmountType( "Security Surcharge Suspense" );
 		insert( accountingJournal );
-		System.out.println(" Security Surcharge Expense Executed" + revenue);
+		System.out.println(" Security Surcharge Expense Executed");
 		context.setOutPutObject( accountingJournal );
 end
