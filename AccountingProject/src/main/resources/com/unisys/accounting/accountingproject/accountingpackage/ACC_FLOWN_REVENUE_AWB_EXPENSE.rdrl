@@ -19,12 +19,12 @@ rule "ACC_CASSBILLING_AWB_AGENTDEBTOR"
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990006" );
-		accountingJournal.setDebitAmountSourceCurrency( 0.0B );
+		accountingJournal.setDebitAmountSourceCurrency( 0.0 );
 		accountingJournal.setCreditAmountSourceCurrency( revenue );
 		accountingJournal.setCostCenter( "MSP" );
 		accountingJournal.setRuleName( "Accounting Flown Revenue" );
 		accountingJournal.setAmountType( "Flown Revenue" );
 		insert( accountingJournal );
-		context.setOutPutObject( accountingJournal );
 		System.out.println(" Flown Revenue International Expense Executed" + revenue);
+		context.setOutPutObject( accountingJournal );
 end
