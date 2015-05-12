@@ -14,15 +14,12 @@ rule "ACC_CASSBILLING_AWB_OCDA"
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990012" );
-		accountingJournal.setCreditAmountSourceCurrency( 0.0B );
+		accountingJournal.setCreditAmountSourceCurrency( 0.0 );
 		accountingJournal.setDebitAmountSourceCurrency( ocda );
 		accountingJournal.setRuleName( "Accounting CASS Billing AWB OCDA" );
 		accountingJournal.setAmountType( "OCDA" );
 		accountingJournal.setCostCenter( "MSP" );
 		insert( accountingJournal );
-		context.setOutPutObject( accountingJournal );
-		
-		
-		
 		System.out.println("***************Other Charge Due Agent AWB EXECUTED*************");
+		context.setOutPutObject( accountingJournal );
 end
