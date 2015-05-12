@@ -15,14 +15,11 @@ rule "ACC_CASSBILLING_AWB_SALESINADVANCE"
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990008" );
 		accountingJournal.setCreditAmountSourceCurrency( weightCharge.add(valuationCharge) );
-		accountingJournal.setDebitAmountSourceCurrency( 0.0B );
+		accountingJournal.setDebitAmountSourceCurrency( 0.0 );
 		accountingJournal.setRuleName( "Accounting CASS Billing AWB Sales In Advance" );
 		accountingJournal.setAmountType( "Sales In Advance" );
 		accountingJournal.setCostCenter( "MSP" );
 		insert( accountingJournal );
-		context.setOutPutObject( accountingJournal );
-		
-		
-		
 		System.out.println("***************Sales In Advance AWB EXECUTED*************" + weightCharge.add(valuationCharge));
+		context.setOutPutObject( accountingJournal );
 end
