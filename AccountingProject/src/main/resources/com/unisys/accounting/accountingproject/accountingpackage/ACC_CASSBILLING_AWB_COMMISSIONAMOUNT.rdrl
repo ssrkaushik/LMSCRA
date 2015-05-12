@@ -14,7 +14,7 @@ rule "ACC_CASSBILLING_AWB_COMMISSIONAMOUNT"
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990007" );
-		accountingJournal.setCreditAmountSourceCurrency( 0.0 );
+		accountingJournal.setCreditAmountSourceCurrency( 0.B );
 		accountingJournal.setDebitAmountSourceCurrency( commissionAmount );
 		accountingJournal.setRuleName( "Accounting CASS Billing AWB Commission Amount" );
 		accountingJournal.setAmountType( "Commission Amount" );
