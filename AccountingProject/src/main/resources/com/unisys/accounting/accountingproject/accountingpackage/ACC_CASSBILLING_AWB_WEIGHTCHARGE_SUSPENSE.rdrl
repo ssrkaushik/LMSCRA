@@ -14,10 +14,14 @@ rule "ACC_CASSBILLING_AWB_WEIGHTCHARGE_SUSPENSE"
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "14108888" );
-		accountingJournal.setCreditAmountSourceCurrency( weightCharge );
-		accountingJournal.setDebitAmountSourceCurrency( 0.0B );
-		accountingJournal.setRuleName( "Accounting CASS Billing AWB Weight Charge Expense" );
-		accountingJournal.setAmountType( "Weight Charge Expense" );
+		accountingJournal.setCreditAmountSourceCurrency( 0.0B );
+		accountingJournal.setDebitAmountSourceCurrency( weightCharge );
+		accountingJournal.setRuleName( "Accounting CASS Billing AWB Weight Charge Suspense" );
+		accountingJournal.setAmountType( "Weight Charge Suspense" );
 		accountingJournal.setCostCenter( "MSP" );
 		insert( accountingJournal );
+		
+		
+		
+		System.out.println("***************Weight charge Suspense AWB EXECUTED*************" + weightCharge);
 end
