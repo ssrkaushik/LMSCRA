@@ -1,0 +1,24 @@
+package com.unisys.accounting.accountingproject.accountingpackage;
+
+import java.lang.Number;
+import com.unisys.trans.logistics.lms.accounting.dto.AccountingDroolsRequest;
+import com.unisys.trans.logistics.lms.accounting.dto.AccountingEntryJournalDto;
+import com.unisys.trans.logistics.lms.accounting.dto.constants.AccountingRuleIndicators;
+import com.unisys.trans.logistics.lms.framework.dto.RulesExecutionContext;
+
+rule "ACC_CASSBILLING_AWB_OCDA"
+	dialect "mvel"
+	when
+		context : RulesExecutionContext( )
+		request : AccountingDroolsRequest( triggerPoint == "CASS Billing" , ruleIndicator == AccountingRuleIndicators.AWB , ocdc : cassParticipantInvoiceAWBDto.otherChargesDueCarrier > 0.0B )
+	then
+		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
+		accountingJournal.setGlAccountNumber( "99990009" );
+		accountingJournal.setCreditAmountSourceCurrency( request.getOtherChargeSuspenseCode("MY","SC") );
+		accountingJournal.setDebitAmountSourceCurrency( 0.0 );
+		accountingJournal.setRuleName( "Accounting CASS Billing AWB OCDC" );
+		accountingJournal.setAmountType( "OCDC" );
+		accountingJournal.setCostCenter( "MSP" );
+		insert( accountingJournal );
+		context.setOutPutObject( accountingJournal );
+end
