@@ -13,7 +13,7 @@ rule "ACC_CASSBILLING_AWB_FUELSURCHARGE"
 		request : AccountingDroolsRequest( triggerPoint == "CASS Billing" , ruleIndicator == AccountingRuleIndicators.AWB , eval( otherChargeCodeExists("MY") ))
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
-		accountingJournal.setGlAccountNumber( "99990007" );
+		accountingJournal.setGlAccountNumber( "99990009" );
 		accountingJournal.setCreditAmountSourceCurrency( request.getOtherChargeCode("MY") );
 		accountingJournal.setDebitAmountSourceCurrency( 0.0B );
 		accountingJournal.setRuleName( "Accounting CASS Billing AWB Commission Amount" );
