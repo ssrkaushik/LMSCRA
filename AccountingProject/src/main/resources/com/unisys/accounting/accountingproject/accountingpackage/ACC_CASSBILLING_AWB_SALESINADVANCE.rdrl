@@ -10,15 +10,19 @@ rule "ACC_CASSBILLING_AWB_SALESINADVANCE"
 	dialect "mvel"
 	when
 		context : RulesExecutionContext( )
-		request : AccountingDroolsRequest( triggerPoint == "CASS Billing" , ruleIndicator == AccountingRuleIndicators.AWB , ocda : cassParticipantInvoiceAWBDto.otherChargesDueAgent > 0.0B )
+		request : AccountingDroolsRequest( triggerPoint == "CASS Billing" , ruleIndicator == AccountingRuleIndicators.AWB , weightCharge : cassParticipantInvoiceAWBDto.weightCharge > 0.0B || valuationCharge : cassParticipantInvoiceAWBDto.valuationCharge > 0.0B )
 	then
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
-		accountingJournal.setGlAccountNumber( "99990012" );
-		accountingJournal.setCreditAmountSourceCurrency( 0.0B );
-		accountingJournal.setDebitAmountSourceCurrency( ocda );
-		accountingJournal.setRuleName( "Accounting CASS Billing AWB OCDA" );
-		accountingJournal.setAmountType( "OCDA" );
+		accountingJournal.setGlAccountNumber( "99990008" );
+		accountingJournal.setCreditAmountSourceCurrency( weightCharge.add(valuationCharge) );
+		accountingJournal.setDebitAmountSourceCurrency( 0.0B );
+		accountingJournal.setRuleName( "Accounting CASS Billing AWB Sales In Advance" );
+		accountingJournal.setAmountType( "Sales In Advance" );
 		accountingJournal.setCostCenter( "MSP" );
 		insert( accountingJournal );
 		context.setOutPutObject( accountingJournal );
+		
+		
+		
+		System.out.println("***************Sales In Advance AWB EXECUTED*************" + weightCharge.add(valuationCharge));
 end
