@@ -15,14 +15,11 @@ rule "ACC_CASSBILLING_AWB_FUELSURCHARGE"
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990009" );
 		accountingJournal.setCreditAmountSourceCurrency( request.getOtherChargeCode("MY") );
-		accountingJournal.setDebitAmountSourceCurrency( 0.0B );
+		accountingJournal.setDebitAmountSourceCurrency( 0.0 );
 		accountingJournal.setRuleName( "Accounting CASS Billing AWB Commission Amount" );
 		accountingJournal.setAmountType( "Commission Amount" );
 		accountingJournal.setCostCenter( "MSP" );
 		insert( accountingJournal );
-		context.setOutPutObject( accountingJournal );
-		
-		
-		
 		System.out.println("***************Fuel Surcharge AWB EXECUTED*************" + request.getOtherChargeCode("MY"));
+		context.setOutPutObject( accountingJournal );
 end
