@@ -15,7 +15,7 @@ rule "ACC_CASSBILLING_AWB_FUELSURCHARGE"
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990009" );
 		accountingJournal.setCreditAmountSourceCurrency( request.getOtherChargeCode("MY") );
-		accountingJournal.setDebitAmountSourceCurrency( 0.0 );
+		accountingJournal.setDebitAmountSourceCurrency( 0.B );
 		accountingJournal.setRuleName( "Accounting CASS Billing AWB Commission Amount" );
 		accountingJournal.setAmountType( "Commission Amount" );
 		accountingJournal.setCostCenter( "MSP" );
