@@ -1,0 +1,23 @@
+package com.unisys.accounting.accountingproject.accountingpackage;
+
+import java.lang.Number;
+import com.unisys.trans.logistics.lms.accounting.dto.AccountingDroolsRequest;
+import com.unisys.trans.logistics.lms.accounting.dto.AccountingEntryJournalDto;
+import com.unisys.trans.logistics.lms.accounting.dto.constants.AccountingRuleIndicators;
+import com.unisys.trans.logistics.lms.framework.dto.RulesExecutionContext;
+
+rule "ACC_CASSBILLING_AWB_WEIGHTCHARGE_SUSPENSE"
+	dialect "mvel"
+	when
+		context : RulesExecutionContext( )
+		AccountingDroolsRequest( triggerPoint == "CASS Billing" , ruleIndicator == AccountingRuleIndicators.AWB , weightCharge : cassParticipantInvoiceAWBDto.weightCharge > 0.0B )
+	then
+		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
+		accountingJournal.setGlAccountNumber( "14108888" );
+		accountingJournal.setCreditAmountSourceCurrency( weightCharge );
+		accountingJournal.setDebitAmountSourceCurrency( 0.0B );
+		accountingJournal.setRuleName( "Accounting CASS Billing AWB Weight Charge Expense" );
+		accountingJournal.setAmountType( "Weight Charge Expense" );
+		accountingJournal.setCostCenter( "MSP" );
+		insert( accountingJournal );
+end
