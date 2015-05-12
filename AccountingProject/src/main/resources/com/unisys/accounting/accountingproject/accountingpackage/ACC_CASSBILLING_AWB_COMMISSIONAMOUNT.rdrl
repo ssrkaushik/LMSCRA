@@ -2,7 +2,7 @@ package com.unisys.accounting.accountingproject.accountingpackage;
 
 import java.lang.Number;
 
-rule "ACC_CASSBILLING_AWB_AGENTDEBTOR"
+rule "ACC_CASSBILLING_AWB_COMMISSIONAMOUNT"
 	dialect "mvel"
 	when
 	then
