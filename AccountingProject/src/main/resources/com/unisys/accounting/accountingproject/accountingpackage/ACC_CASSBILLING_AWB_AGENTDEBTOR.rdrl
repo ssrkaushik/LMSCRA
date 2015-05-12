@@ -1,0 +1,9 @@
+package com.unisys.accounting.accountingproject.accountingpackage;
+
+import java.lang.Number;
+
+rule "ACC_CASSBILLING_AWB_AGENTDEBTOR"
+	dialect "mvel"
+	when
+	then
+end
