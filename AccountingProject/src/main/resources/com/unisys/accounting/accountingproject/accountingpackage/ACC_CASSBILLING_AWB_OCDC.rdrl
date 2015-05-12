@@ -15,14 +15,11 @@ rule "ACC_CASSBILLING_AWB_OCDC"
 		AccountingEntryJournalDto accountingJournal = new AccountingEntryJournalDto();
 		accountingJournal.setGlAccountNumber( "99990009" );
 		accountingJournal.setCreditAmountSourceCurrency( request.getOtherChargeSuspenseCode("MY","SC") );
-		accountingJournal.setDebitAmountSourceCurrency( 0.0 );
+		accountingJournal.setDebitAmountSourceCurrency( 0.B );
 		accountingJournal.setRuleName( "Accounting CASS Billing AWB OCDC" );
 		accountingJournal.setAmountType( "OCDC" );
 		accountingJournal.setCostCenter( "MSP" );
 		insert( accountingJournal );
-		context.setOutPutObject( accountingJournal );
-		
-		
-		
 		System.out.println("***************Other charge due carrier AWB EXECUTED*************"+ request.getOtherChargeSuspenseCode("MY","SC")) ;
+		context.setOutPutObject( accountingJournal );
 end
